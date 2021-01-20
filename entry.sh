@@ -34,6 +34,20 @@ if [[ ! -z "$FTP_PASV_ADDRESS" ]]; then
   done
 fi
 
+# Support setting the passive ports range
+if [[ ! -z "$FTP_PASV_MIN_PORT" ]] && [[ ! -z "$FTP_PASV_MAX_PORT" ]]; then
+  for f in /etc/vsftpd*.conf; do
+    echo "pasv_min_port=${FTP_PASV_MIN_PORT}" >> "$f"
+    echo "pasv_max_port=${FTP_PASV_MAX_PORT}" >> "$f"
+  done
+else
+  for f in /etc/vsftpd*.conf; do
+    echo "pasv_min_port=4559" >> "$f"
+    echo "pasv_max_port=4564" >> "$f"
+  done
+fi
+
+
 # Manage /srv permissions
 if [[ ! -z "${FTP_CHOWN_ROOT}" ]]; then
   chown ftp:ftp /srv

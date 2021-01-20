@@ -26,7 +26,7 @@ COPY *.sh /
 
 VOLUME ["/etc/vsftpd", "/srv"]
 
-EXPOSE 21 4559 4560 4561 4562 4563 4564
+EXPOSE 21
 
 ENTRYPOINT ["/entry.sh"]
 CMD ["vsftpd"]
